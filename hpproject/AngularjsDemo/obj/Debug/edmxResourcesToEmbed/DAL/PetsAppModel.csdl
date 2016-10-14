@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="demoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="customer_OrderDetails">
+    <Key>
+      <PropertyRef Name="order_details_id" />
+    </Key>
+    <Property Name="order_details_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="order_id" Type="Int32" />
+    <Property Name="qty" Type="Int32" />
+    <Property Name="ProductName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Imageurl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="customer_Orders">
+    <Key>
+      <PropertyRef Name="order_id" />
+    </Key>
+    <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="product_id" Type="Int32" />
+    <Property Name="customer_id" Type="Int32" />
+    <Property Name="order_total" Type="Int32" />
+  </EntityType>
+  <EntityType Name="customer_Products">
+    <Key>
+      <PropertyRef Name="product_id" />
+    </Key>
+    <Property Name="product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="ImageUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="price" Type="Int32" />
+    <Property Name="ProductName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="SampleDbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="customer_OrderDetails" EntityType="Self.customer_OrderDetails" />
+    <EntitySet Name="customer_Orders" EntityType="Self.customer_Orders" />
+    <EntitySet Name="customer_Products" EntityType="Self.customer_Products" />
+  </EntityContainer>
+</Schema>
