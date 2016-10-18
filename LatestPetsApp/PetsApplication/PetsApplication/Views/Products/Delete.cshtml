@@ -53,21 +53,21 @@
                 @Html.DisplayFor(model => item.price)
             </dd>
 
-
-
         </dl>
 
+        using(Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                @Html.ActionLink("Delete", "Delete", new { id = item.product_id }, new { @class = "btn btn-danger" })
+                <input type="submit" value="Delete" class="btn btn-danger" />
+                @Html.ActionLink("Back to List", "CustomerOrders")
+            </div>
+
+        }
     }
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            @*@Html.ActionLink("Delete", "Delete", new { id = item.product_id }, new { @class = "btn btn-danger" })*@
-            <input type="submit" value="Delete" class="btn btn-danger" />
-            @Html.ActionLink("Back to List", "CustomerOrders")
-        </div>
 
 
-    }
+    
 </div>

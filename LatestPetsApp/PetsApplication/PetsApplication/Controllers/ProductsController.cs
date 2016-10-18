@@ -154,16 +154,25 @@ namespace PetsApplication.Controllers
         [ActionName("Delete")]
         public ActionResult Delete_post(int id)
         {
-            
-           // c.ProRel.RemoveRange(db.ProRel.Where(c => c.ProjectId == Project_id));
-            context.Products.Where(p => p.product_id == id)
-                .ToList().ForEach(p => context.Products.Remove(p));
-           // context.SaveChanges();
-            context.Products.RemoveRange(context.Products.Where(x => x.product_id == id));
-            Products products = context.Products.Find(id);
-            context.Products.Remove(products);
+
+            // c.ProRel.RemoveRange(db.ProRel.Where(c => c.ProjectId == Project_id));
+            //context.Products.Where(p => p.product_id == id)
+            //    .ToList().ForEach(p => context.Products.Remove(p));
+            // context.SaveChanges();
+            //context.Products.RemoveRange(context.Products.Where(x => x.product_id == id));
+            //Products products = context.Products.Find(id);
+            //context.Products.Remove(products);
+            //context.SaveChanges();
+            //return RedirectToAction("CustomerOrders","Products");
+
+           context.Database.ExecuteSqlCommand("delete from [customer_OrderDetails] where order_id = {0}", id);
+
+            //var vps = context.Products.Where(a => a.product_id == id).ToList();
+            //foreach (var vp in vps)
+            //    context.Products.Remove(vp);
             context.SaveChanges();
-            return RedirectToAction("CustomerOrders","Products");
+
+            return RedirectToAction("CustomerOrders", "Products");
 
         }
         public PartialViewResult Load(int id)
