@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="customer_OrderDetails">
+    <Key>
+      <PropertyRef Name="order_details_id" />
+    </Key>
+    <Property Name="order_details_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="order_id" Type="int" />
+    <Property Name="qty" Type="int" />
+    <Property Name="ProductName" Type="varchar" MaxLength="200" />
+    <Property Name="Imageurl" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="customer_Orders">
+    <Key>
+      <PropertyRef Name="order_id" />
+    </Key>
+    <Property Name="order_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="product_id" Type="int" />
+    <Property Name="customer_id" Type="int" />
+    <Property Name="order_total" Type="int" />
+  </EntityType>
+  <EntityType Name="customer_Products">
+    <Key>
+      <PropertyRef Name="product_id" />
+    </Key>
+    <Property Name="product_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="200" />
+    <Property Name="description" Type="varchar" MaxLength="1000" />
+    <Property Name="ImageUrl" Type="varchar" MaxLength="200" />
+    <Property Name="price" Type="int" />
+    <Property Name="ProductName" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="customer_Register">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="20" />
+    <Property Name="email" Type="varchar" MaxLength="200" />
+    <Property Name="city" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="FK__customer___custo__1B0907CE">
+    <End Role="customer_Register" Type="Self.customer_Register" Multiplicity="0..1" />
+    <End Role="customer_Orders" Type="Self.customer_Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customer_Register">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="customer_Orders">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__customer___order__1DE57479">
+    <End Role="customer_Orders" Type="Self.customer_Orders" Multiplicity="0..1" />
+    <End Role="customer_OrderDetails" Type="Self.customer_OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customer_Orders">
+        <PropertyRef Name="order_id" />
+      </Principal>
+      <Dependent Role="customer_OrderDetails">
+        <PropertyRef Name="order_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__customer___produ__1A14E395">
+    <End Role="customer_Products" Type="Self.customer_Products" Multiplicity="0..1" />
+    <End Role="customer_Orders" Type="Self.customer_Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customer_Products">
+        <PropertyRef Name="product_id" />
+      </Principal>
+      <Dependent Role="customer_Orders">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="modelStoreContainer">
+    <EntitySet Name="customer_OrderDetails" EntityType="Self.customer_OrderDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="customer_Orders" EntityType="Self.customer_Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="customer_Products" EntityType="Self.customer_Products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="customer_Register" EntityType="Self.customer_Register" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__customer___custo__1B0907CE" Association="Self.FK__customer___custo__1B0907CE">
+      <End Role="customer_Register" EntitySet="customer_Register" />
+      <End Role="customer_Orders" EntitySet="customer_Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__customer___order__1DE57479" Association="Self.FK__customer___order__1DE57479">
+      <End Role="customer_Orders" EntitySet="customer_Orders" />
+      <End Role="customer_OrderDetails" EntitySet="customer_OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__customer___produ__1A14E395" Association="Self.FK__customer___produ__1A14E395">
+      <End Role="customer_Products" EntitySet="customer_Products" />
+      <End Role="customer_Orders" EntitySet="customer_Orders" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

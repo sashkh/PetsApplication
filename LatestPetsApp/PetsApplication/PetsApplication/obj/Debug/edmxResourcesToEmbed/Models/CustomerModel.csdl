@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="CustomerDbContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Registers" EntityType="model.Register" />
+    <EntitySet Name="OrderDetails" EntityType="model.OrderDetails" />
+    <EntitySet Name="Orders" EntityType="model.Orders" />
+    <EntitySet Name="Products" EntityType="model.Products" />
+    <AssociationSet Name="FK__customer___order__1DE57479" Association="model.FK__customer___order__1DE57479">
+      <End Role="customer_Orders" EntitySet="Orders" />
+      <End Role="customer_OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__customer___custo__1B0907CE" Association="model.FK__customer___custo__1B0907CE">
+      <End Role="Register" EntitySet="Registers" />
+      <End Role="customer_Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__customer___produ__1A14E395" Association="model.FK__customer___produ__1A14E395">
+      <End Role="customer_Products" EntitySet="Products" />
+      <End Role="customer_Orders" EntitySet="Orders" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Register">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="customer_Orders" Relationship="model.FK__customer___custo__1B0907CE" FromRole="Register" ToRole="customer_Orders" />
+  </EntityType>
+  <EntityType Name="OrderDetails">
+    <Key>
+      <PropertyRef Name="order_details_id" />
+    </Key>
+    <Property Name="order_details_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="order_id" Type="Int32" />
+    <Property Name="qty" Type="Int32" />
+    <NavigationProperty Name="customer_Orders" Relationship="model.FK__customer___order__1DE57479" FromRole="customer_OrderDetails" ToRole="customer_Orders" />
+    <Property Name="ProductName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Imageurl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="order_id" />
+    </Key>
+    <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="product_id" Type="Int32" />
+    <Property Name="customer_id" Type="Int32" />
+    <Property Name="order_total" Type="Int32" />
+    <NavigationProperty Name="customer_OrderDetails" Relationship="model.FK__customer___order__1DE57479" FromRole="customer_Orders" ToRole="customer_OrderDetails" />
+    <NavigationProperty Name="customer_Register" Relationship="model.FK__customer___custo__1B0907CE" FromRole="customer_Orders" ToRole="Register" />
+    <NavigationProperty Name="customer_Products" Relationship="model.FK__customer___produ__1A14E395" FromRole="customer_Orders" ToRole="customer_Products" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="product_id" />
+    </Key>
+    <Property Name="product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="ImageUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="price" Type="Int32" />
+    <NavigationProperty Name="customer_Orders" Relationship="model.FK__customer___produ__1A14E395" FromRole="customer_Products" ToRole="customer_Orders" />
+    <Property Name="ProductName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK__customer___order__1DE57479">
+    <End Type="model.Orders" Role="customer_Orders" Multiplicity="0..1" />
+    <End Type="model.OrderDetails" Role="customer_OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customer_Orders">
+        <PropertyRef Name="order_id" />
+      </Principal>
+      <Dependent Role="customer_OrderDetails">
+        <PropertyRef Name="order_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__customer___custo__1B0907CE">
+    <End Type="model.Register" Role="Register" Multiplicity="0..1" />
+    <End Type="model.Orders" Role="customer_Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Register">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="customer_Orders">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__customer___produ__1A14E395">
+    <End Type="model.Products" Role="customer_Products" Multiplicity="0..1" />
+    <End Type="model.Orders" Role="customer_Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customer_Products">
+        <PropertyRef Name="product_id" />
+      </Principal>
+      <Dependent Role="customer_Orders">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

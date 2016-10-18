@@ -1,0 +1,73 @@
+﻿@model IEnumerable<PetsApplication.Models.Products>
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+
+<h4>Products</h4>
+<hr />
+
+
+<div>
+    @foreach (var item in Model)
+    {
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.product_id)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => item.product_id)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.ProductName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.description)
+            </dd>
+
+            <dt>
+                Image
+            </dt>
+
+            <dd>
+                <img src=@Url.Content(item.ImageUrl) class="img-circle" alt="Cinque Terre" width="304" height="236">
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.price)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.price)
+            </dd>
+
+
+
+        </dl>
+
+    }
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @*@Html.ActionLink("Delete", "Delete", new { id = item.product_id }, new { @class = "btn btn-danger" })*@
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            @Html.ActionLink("Back to List", "CustomerOrders")
+        </div>
+
+
+    }
+</div>
