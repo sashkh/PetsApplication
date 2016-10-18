@@ -15,7 +15,7 @@
         <th>
 
         <td class="alert-success">Total Amount: @Model.Sum(x => x.price)</td>
-        </th>
+        
         <th>
             @Html.ActionLink("Place Order", "OrderDetails", new { id = "" }, new { @class = "btn btn-success" })
         </th>
@@ -23,7 +23,7 @@
     <tr>
         <th>
             Image
-            @*@Html.DisplayNameFor(model => model.ImageUrl)*@
+            @Html.DisplayNameFor(model => model.ImageUrl)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ProductName)
@@ -60,7 +60,8 @@
             <td>
 
           
-                @*@Html.ActionLink("Delete", "Delete","Products", new { id = item.product_id }, new { @class = "btn btn-danger" })*@
+                @Html.ActionLink("Delete", "Delete","Products", new { id = item.product_id }, new { @class = "btn btn-danger" })
+                
 
             </td>
         </tr>

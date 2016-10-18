@@ -154,14 +154,15 @@ namespace PetsApplication.Controllers
         [ActionName("Delete")]
         public ActionResult Delete_post(int id)
         {
-            // c.ProRel.RemoveRange(db.ProRel.Where(c => c.ProjectId == Project_id));
+            
+           // c.ProRel.RemoveRange(db.ProRel.Where(c => c.ProjectId == Project_id));
             context.Products.Where(p => p.product_id == id)
                 .ToList().ForEach(p => context.Products.Remove(p));
-            context.SaveChanges();
-           // context.Products.RemoveRange(context.Products.Where(x => x.product_id == id));
-            //Products products = context.Products.Find(id);
-            //context.Products.Remove(products);
            // context.SaveChanges();
+            context.Products.RemoveRange(context.Products.Where(x => x.product_id == id));
+            Products products = context.Products.Find(id);
+            context.Products.Remove(products);
+            context.SaveChanges();
             return RedirectToAction("CustomerOrders","Products");
 
         }
